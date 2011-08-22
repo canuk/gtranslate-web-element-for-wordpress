@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name: Google Translate Web Element Shortcode
-Plugin URI: http://www.reubenthiessen.com
-Description: Add the Google Translate Web Element using a short code
+Plugin Name: Translate This - Google Translate Web Element Shortcode
+Plugin URI: https://code.google.com/p/gtranslate-web-element-for-wordpress/
+Description: Add the Google Translate Web Element using a shortcode
 Version: 1.0
 Author: Reuben Thiessen
 Author URI: http://www.reubenthiessen.com
 */
 
 /*
-Google Translate Web Element Shortcode (Wordpress Plugin)
+Translate This - Google Translate Web Element Shortcode (Wordpress Plugin)
 Copyright (C) 2011 Reuben Thiessen
 Contact me at http://www.reubenthiessen.com
 
@@ -28,13 +28,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 /* Usage:  
-[translate_this lang="fr" color="fff" base_lang="en"]
-Text in French
+[translate_this lang="fr" color="#fff" base_lang="en"]
+un texte en français
 [/translate_this]
 
 lang="{language code}" to set the source language.
 Optional Parameters:
-color="{hex code}" - this sets the background of the text once it is translated to the base_language
+background="{hex code}" - this sets the background of the text once it is translated to the base language (Defaults to none)
 base_lang="{two-character language code}" - this sets the base language that your website is generally written in. (Defaults to English)
 */
 
@@ -44,7 +44,7 @@ add_shortcode('translate_this', 'translate_this_shortcode');
 function translate_this_shortcode( $atts, $content = null ) {
     extract(shortcode_atts(array(
 		"lang" => 'en',
-		"color" => '',
+		"background" => 'transparent',
 		"base_lang" => 'en'
 	), $atts)); 
 	  
@@ -52,7 +52,8 @@ function translate_this_shortcode( $atts, $content = null ) {
       function googleSectionalElementInit() {
         new google.translate.SectionalElement({
           sectionalNodeClassName: \'goog-trans-section\',
-          controlNodeClassName: \'goog-trans-control\'
+          controlNodeClassName: \'goog-trans-control\',
+          background: \''.$background.'\'
         }, \'google_sectional_element\');
       }
     </script>
